@@ -156,7 +156,7 @@ namespace LuaFramework
         {
             if (luaResPathDic.Count > 0)
                 return;
-            TextAsset _infoList = Resources.Load("luaList") as TextAsset;
+            TextAsset _infoList = Resources.Load("Config/luaList") as TextAsset;
             if (_infoList != null)
             {
                 string[] _list = _infoList.text.Trim().Split(new string[] { "\n" }, System.StringSplitOptions.None);

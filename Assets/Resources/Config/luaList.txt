@@ -54,10 +54,14 @@ InjectionBridgeInfo.lua|System/Injection/InjectionBridgeInfo.lua
 LuaInjectionBus.lua|System/Injection/LuaInjectionBus.lua
 LuaInjectionStation.lua|System/Injection/LuaInjectionStation.lua
 BindingFlags.lua|System/Reflection/BindingFlags.lua
+BaseData.lua|UI/BaseData.lua
+LuaAData.lua|UI/LuaAData.lua
 LuaClass.lua|UI/LuaClass.lua
 LuaComponent.lua|UI/LuaComponent.lua
 LuaTest.lua|UI/LuaTest.lua
+LuaTest2.lua|UI/LuaTest2.lua
 MainSceneUI.lua|UI/MainSceneUI.lua
+PeopleData.lua|UI/PeopleData.lua
 Bounds.lua|UnityEngine/Bounds.lua
 Color.lua|UnityEngine/Color.lua
 LayerMask.lua|UnityEngine/LayerMask.lua
@@ -73,3 +77,4 @@ Vector2.lua|UnityEngine/Vector2.lua
 Vector3.lua|UnityEngine/Vector3.lua
 Vector4.lua|UnityEngine/Vector4.lua
 BaseView.lua|View/BaseView.lua
+Parent.lua|View/Parent.lua

@@ -14,6 +14,9 @@ namespace LuaFramework
             button.onClick.AddListener(() =>
             {
                 func.Call<GameObject>(obj);
+                //释放
+                //func.Dispose();
+                //func = null;
             });
         }
 
@@ -41,19 +44,6 @@ namespace LuaFramework
             button.onValueChanged.AddListener((isbool) =>
             {
                 func.Call<bool, GameObject>(isbool, obj);
-            });
-        }
-
-        public static void AddButtonClickOnStudyEvent(GameObject obj, LuaFunction func)
-        {
-            UnityEngine.UI.Button button = obj.GetComponent<UnityEngine.UI.Button>();
-            if (button == null)
-                return;
-            button.onClick.AddListener(() =>
-            {
-                func.Call<GameObject>(obj);
-                //EventPatch.Trigger<int>(ProtocolManager.StudyBack,0);
-                //if (UserInfo.myData != null) ProtocolManager.sendSaveStudyTrip(UserInfo.myData.token, 2, 1);
             });
         }
 

@@ -1002,12 +1002,19 @@ public static class ToLuaMenu
             List<string> dirs = new List<string>();
             string _nowPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/')) + "/Assets/" + "Resources/";
             GetDirs(_nowPath, ".bytes", ref dirs);
-            
-           string outpath = Application.dataPath + "/Resources/luaList.txt";
+
+            string _dir = Application.dataPath + "/Resources/Config/";
+           string outpath = _dir+"luaList.txt";
+            //判断目录在不在
+            if(!System.IO.Directory.Exists(_dir))
+            {
+                System.IO.Directory.CreateDirectory(_dir);
+            }
             if (System.IO.File.Exists(outpath))
             {
                 File.Delete(outpath);
             }
+            //File.Create(outpath);
 
             string _assetPath = _nowPath.Substring(_nowPath.IndexOf("Assets"));
             //将文件按照键值对 写入配置文件//

@@ -6,19 +6,21 @@ using System.IO;
 
 public class LuaABEditor : Editor
 {
-    static string savePath = "ScriptAB";
+    static string savePath = "AB/";
     static string saveVar = "data";
     static string _tar = "";
 
     [MenuItem("资源打包/lua 脚本打包/---(Resources_lua)Android---", false, 101)]
     public static void BuildScriptAB()
     {
+        savePath = "AB/Android";
         BuildScriptTar(BuildTarget.Android);
     }
 
     [MenuItem("资源打包/lua 脚本打包/---(Resources_lua)IOS---", false, 101)]
     public static void BuildScriptABIOS()
     {
+        savePath = "AB/iOS";
         BuildScriptTar(BuildTarget.iOS);
     }
 

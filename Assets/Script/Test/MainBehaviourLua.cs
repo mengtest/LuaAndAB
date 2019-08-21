@@ -45,18 +45,18 @@ public class MainBehaviourLua : View
         //  yield return new WaitForSeconds(0.5f);
         //
         yield return 0;
-        Debug.Log("luaManager.InitStart()");
+        //Debug.Log("luaManager.InitStart()");
 
-        Debug.Log("luaManager.InitStart()");
+       // Debug.Log("luaManager.InitStart()");
         //luaManager.Reload();
-        Debug.Log("luaManager.Reload();");
+       // Debug.Log("luaManager.Reload();");
         luaManager.InitStart();
-        Debug.Log("luaManager.InitStart();");
+        //Debug.Log("luaManager.InitStart();");
         luaManager.DoFile(luaName);
-        Debug.Log("luaName luaName luaName ");
+        //Debug.Log("luaName luaName luaName ");
         luaManager.CallFunction(luaName + ".Init", this);
-        Debug.Log("luaManager.InitStart()-------");
-        Debug.Log(luaManager);
+        //Debug.Log("luaManager.InitStart()-------");
+        //Debug.Log(luaManager);
     }
 
     //update
