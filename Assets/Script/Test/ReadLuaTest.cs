@@ -1,7 +1,10 @@
-﻿using System;
+﻿using LuaInterface;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ReadLuaTest : MonoBehaviour
 {
@@ -71,13 +74,35 @@ public class ReadLuaTest : MonoBehaviour
 
     }
 
-    public static Dictionary<string, byte[]> m_script = new Dictionary<string, byte[]>();
+    // public static Dictionary<string, byte[]> m_script = new Dictionary<string, byte[]>();
     IEnumerator readABIE()
     {
         //
-        string _url = Application.streamingAssetsPath + "/ScriptAB/lua.data";
+        //string _url = "https://aiways-aichizhixingapp.oss-cn-shanghai.aliyuncs.com/ar-user-manual/Test/lua.data"; //Application.streamingAssetsPath + "/AB/Android/lua.data";
 
-        AssetBundleCreateRequest _req = AssetBundle.LoadFromFileAsync(_url);
+        string _url = Application.streamingAssetsPath + "/AB/Android/lua.data";
+        string _savePath = Application.persistentDataPath + "/lua.data";
+        //下载部分
+        UnityWebRequest _web = new UnityWebRequest(_url);
+        //初始化下载//
+        _web.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        _web.SendWebRequest();
+        while (_web.isDone)
+        {
+            yield return 0;
+        }
+        //
+        while (!_web.downloadHandler.isDone)
+        {
+            yield return 0;
+        }
+
+        //将下载的内容写入，本地路径中
+        File.WriteAllBytes(_savePath, _web.downloadHandler.data);
+        yield return 0;
+        Debug.LogError("下载完成！");
+
+        AssetBundleCreateRequest _req = AssetBundle.LoadFromFileAsync(_savePath);
 
         while (_req.isDone)
         {
@@ -91,15 +116,15 @@ public class ReadLuaTest : MonoBehaviour
         for (int i = 0; i < _objList.Length; i++)
         {
             string _Keyname = _objList[i].name;
-            if (!m_script.ContainsKey(_Keyname))
+            if (!LuaState.m_script.ContainsKey(_Keyname))
             {
                 // Debug.LogError(_Keyname);
                 byte[] _byteList = UnityEngine.Object.Instantiate(_objList[i] as TextAsset).bytes;// (_objList[i] as TextAsset).bytes;
-                m_script.Add(_Keyname, _byteList);
+                LuaState.m_script.Add(_Keyname, _byteList);
             }
             else
             {
-                m_script[_Keyname] = UnityEngine.Object.Instantiate(_objList[i] as TextAsset).bytes;
+                LuaState.m_script[_Keyname] = UnityEngine.Object.Instantiate(_objList[i] as TextAsset).bytes;
             }
 
             //AppFacade.instance.GetManager<LuaManager>(ManagerName.LUA).DoFile2(_Keyname);
@@ -119,7 +144,7 @@ public class ReadLuaTest : MonoBehaviour
         ScriptAB.Unload(false);
         _req = null;
 
-        Debug.LogError("m_script:" + m_script.Count);
+        Debug.LogError("m_script:" + LuaState.m_script.Count);
         Debug.LogError("脚本读取完成");
     }
 
@@ -136,19 +161,14 @@ public class ReadLuaTest : MonoBehaviour
 
         if (!_name.EndsWith(".lua"))
             _name += ".lua";
-
-
-
-        if (m_script.ContainsKey(_name))
+        if (LuaState.m_script.ContainsKey(_name))
         {
-            return m_script[_name];
+            return LuaState.m_script[_name];
         }
         else
         {
 
         }
-
-
         return null;
     }
 

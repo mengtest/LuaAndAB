@@ -2,12 +2,17 @@
 
 public static class LuaConst
 {
-    public static bool USE_AB = false;
+    public static bool USE_AB = true;
 
 
 
     public static string luaDir = Application.dataPath + "/Lua";                //lua逻辑代码目录
     public static string toluaDir = Application.dataPath + "/ToLua/Lua";        //tolua lua文件目录
+    /// <summary>
+    /// Lua的AB包网络下载地址
+    /// （可以动态修改）
+    /// </summary>
+    public static string luaUrl = "";
 
 #if UNITY_STANDALONE
     public static string osDir = "Win";

@@ -77,4 +77,5 @@ Vector2.lua|UnityEngine/Vector2.lua
 Vector3.lua|UnityEngine/Vector3.lua
 Vector4.lua|UnityEngine/Vector4.lua
 BaseView.lua|View/BaseView.lua
+MyCar.lua|View/MyCar.lua
 Parent.lua|View/Parent.lua

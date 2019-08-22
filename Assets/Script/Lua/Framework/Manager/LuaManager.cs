@@ -24,6 +24,13 @@ namespace LuaFramework
 
         }
 
+        public void LoadLuaAB()
+        {
+            
+        }
+
+
+
         public void Reload()
         {
             Debug.LogError("00_Reload");
@@ -37,6 +44,7 @@ namespace LuaFramework
                 m_LuaLooper.Destroy();
 
             m_LuaState = new LuaState();
+            //m_LuaState.InitPackagePath();
             this.OpenLibs();
             m_LuaState.LuaSetTop(0);
 
@@ -45,8 +53,15 @@ namespace LuaFramework
 
             m_LuaLoader.Restart();
 
-            m_LuaState.AddSearchPath(Application.dataPath + "/Lua");
+            // m_LuaState.AddSearchPath(Application.dataPath + "/Lua");
 
+#if UNITY_EDITOR
+            if (!LuaConst.USE_AB)
+            {
+                m_LuaState.AddSearchPath(LuaConst.toluaDir);
+                m_LuaState.AddSearchPath(LuaConst.luaDir);
+            }
+#endif
 
         }
 
@@ -151,7 +166,7 @@ namespace LuaFramework
 
         private Dictionary<string, string> luaResPathDic = new Dictionary<string, string>();
         private string[] split = (new string[] { "|", @"|" });
-        //读取resource下的路径//
+        //读取resource下的路径(AB包时，读取AB包中的文件列表内容)//
         public void getResourcePath()
         {
             if (luaResPathDic.Count > 0)

@@ -103,13 +103,22 @@ public class LuaResLoader : LuaFileUtils
         }
 
         byte[] buffer = null;
-        string path = "Lua/" + fileName;
-        TextAsset text = Resources.Load(path, typeof(TextAsset)) as TextAsset;
-
-        if (text != null)
+        if (LuaConst.USE_AB)
         {
-            buffer = text.bytes;
-            Resources.UnloadAsset(text);
+            //LuaState.m_script.ContainsKey(fileName)
+          return  LuaState.getLua(fileName);
+        }
+        else
+        {
+
+            string path = "Lua/" + fileName;
+            TextAsset text = Resources.Load(path, typeof(TextAsset)) as TextAsset;
+
+            if (text != null)
+            {
+                buffer = text.bytes;
+                Resources.UnloadAsset(text);
+            }
         }
 
         return buffer;

@@ -164,7 +164,17 @@ namespace LuaInterface
                 if (!string.IsNullOrEmpty(path) && File.Exists(path))
                 {
 #if !UNITY_WEBPLAYER
-                    str = File.ReadAllBytes(path);
+                    if (LuaConst.USE_AB)
+                    {
+                        //if (LuaState.m_script.ContainsKey(fileName))
+                        {
+                            str = LuaState.getLua(fileName);// m_script[fileName];
+                        }
+                    }
+                    else
+                    {
+                        str = File.ReadAllBytes(path);
+                    }
 #else
                     throw new LuaException("can't run in web platform, please switch to other platform");
 #endif

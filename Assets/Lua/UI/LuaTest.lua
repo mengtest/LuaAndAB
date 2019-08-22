@@ -13,10 +13,15 @@ local  Parent =  require "View.Parent";
 
 function LuaTest:awake(obj)
 
-	print(MainSceneUI.count);
+	-- print(MainSceneUI.count);
 
-	MainSceneUI.count = 2344;
-	MainSceneUI:printCount();
+	-- MainSceneUI.count = 2344;
+	-- MainSceneUI:printCount();
+
+	--AB包时脚本没有被加载到内存中，看是否报错
+	local  MyCar =  require "View.MyCar";
+	self.MyCar = MyCar:new();
+	self.MyCar:print();
 
 	--调用其他lua脚本，并实例化
 	self.LuaComponent = Luacomponent:new();

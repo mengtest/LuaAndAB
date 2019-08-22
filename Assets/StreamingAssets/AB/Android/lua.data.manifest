@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1139206439
+CRC: 1571548869
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 988d85aefa9f24a35a0ec3f5e61105fb
+    Hash: c12614873d751065635e390e9a73629d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -90,6 +90,7 @@ Assets:
 - Assets/Resources/Lua/jit/bc.lua.bytes
 - Assets/Resources/Lua/jit/dis_arm.lua.bytes
 - Assets/Resources/Lua/View/Parent.lua.bytes
+- Assets/Resources/Lua/View/MyCar.lua.bytes
 - Assets/Resources/Lua/protobuf/descriptor.lua.bytes
 - Assets/Resources/Lua/misc/utf8.lua.bytes
 Dependencies: []

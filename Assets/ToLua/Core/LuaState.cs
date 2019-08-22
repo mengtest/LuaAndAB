@@ -87,6 +87,10 @@ namespace LuaInterface
         private static LuaState mainState = null;
         private static LuaState injectionState = null;
         private static Dictionary<IntPtr, LuaState> stateMap = new Dictionary<IntPtr, LuaState>();
+        /// <summary>
+        /// Lua的字节数据
+        /// </summary>
+        public static Dictionary<string, byte[]> m_script = new Dictionary<string, byte[]>();
 
         private int beginCount = 0;
         private bool beLogGC = false;
@@ -613,7 +617,20 @@ namespace LuaInterface
                 throw new LuaException("you must call Start() first to initialize LuaState");
             }
 #endif
-            byte[] buffer = LuaFileUtils.Instance.ReadFile(fileName);
+            byte[] buffer = null;// LuaFileUtils.Instance.ReadFile(fileName);
+            if (LuaConst.USE_AB)
+            {
+                //if(LuaState.m_script.ContainsKey(fileName))
+                {
+                    buffer =  LuaState.getLua(fileName);
+                }
+            }
+            else
+            {
+                buffer = LuaFileUtils.Instance.ReadFile(fileName);
+            }
+
+           
 
             if (buffer == null)
             {
@@ -637,9 +654,42 @@ namespace LuaInterface
 
         public void DoFile(string fileName)
         {
-            byte[] buffer = LoadFileBuffer(fileName);
+            byte[] buffer = null;// LoadFileBuffer(fileName);
+            //if (LuaConst.USE_AB)
+            //{
+            //    if (m_script.ContainsKey(fileName))
+            //    {
+            //        buffer = getLua(fileName);// m_script[fileName];
+            //    }
+            //    //buffer = LoadFileBuffer(fileName);
+            //}
+            //else
+            {
+                buffer =  LoadFileBuffer(fileName);
+            }
+            
             fileName = LuaChunkName(fileName);
             LuaLoadBuffer(buffer, fileName);
+        }
+
+
+        private static string[] split = (new string[] { "/", @"\" });
+        /// <summary>
+        /// 根据文件名字，读取Lua中的字节数据
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static byte[] getLua(string fileName)
+        {
+            string[] _list = fileName.Split(split, StringSplitOptions.None);
+            string _name = _list[_list.Length - 1];
+            if (!_name.EndsWith(".lua"))
+                _name += ".lua";
+            if (LuaState.m_script.ContainsKey(_name))
+            {
+                return LuaState.m_script[_name];
+            }
+            return null;
         }
 
         public T DoFile<T>(string fileName)
